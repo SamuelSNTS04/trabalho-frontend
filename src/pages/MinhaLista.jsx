@@ -1,5 +1,9 @@
 function MinhaLista() {
-  return <></>;
+  return (
+    <>
+      <h1>Minha Lista</h1>
+    </>
+  );
 }
 
 export default MinhaLista;

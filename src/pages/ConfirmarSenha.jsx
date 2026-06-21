@@ -1,5 +1,9 @@
 function ConfirmarSenha() {
-  return <></>;
+  return (
+    <>
+      <h1>Confirmar Senha</h1>
+    </>
+  );
 }
 
 export default ConfirmarSenha;
