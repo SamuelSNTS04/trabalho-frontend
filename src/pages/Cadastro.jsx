@@ -41,5 +41,4 @@ function Cadastro() {
     </div>
   );
 }
-
 export default Cadastro;
