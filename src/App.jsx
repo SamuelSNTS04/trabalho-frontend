@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
+// Importação do Provider do Contexto (ISSUE #20)
+import { WatchlistProvider } from "./context/WatchlistContext";
+
 // Layout Estrutural
 import Layout from "./components/Layout";
 
@@ -16,24 +19,27 @@ import Erro404 from "./pages/Erro404";
 
 function App() {
   return (
-    <Routes>
-      {/* Rotas Públicas / Autônomas (Sem o menu lateral) */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/cadastro" element={<Cadastro />} />
-      <Route path="/confirmar-senha" element={<ConfirmarSenha />} />
+    // Envolvendo toda a aplicação com o Provider global
+    <WatchlistProvider>
+      <Routes>
+        {/* Rotas Públicas / Autônomas (Sem o menu lateral) */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/confirmar-senha" element={<ConfirmarSenha />} />
 
-      {/* Rotas Protegidas / Internas (Que compartilham o Layout/Menu lateral) */}
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/categorias" element={<Categorias />} />
-        <Route path="/minha-lista" element={<MinhaLista />} />
-        <Route path="/sugestoes" element={<Sugestoes />} />
-        <Route path="/configuracoes" element={<Configuracoes />} />
-      </Route>
+        {/* Rotas Protegidas / Internas (Que compartilham o Layout/Menu lateral) */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/categorias" element={<Categorias />} />
+          <Route path="/minha-lista" element={<MinhaLista />} />
+          <Route path="/sugestoes" element={<Sugestoes />} />
+          <Route path="/configuracoes" element={<Configuracoes />} />
+        </Route>
 
-      {/* Rota de Captura para qualquer link inexistente (404) */}
-      <Route path="*" element={<Erro404 />} />
-    </Routes>
+        {/* Rota de Captura para qualquer link inexistente (404) */}
+        <Route path="*" element={<Erro404 />} />
+      </Routes>
+    </WatchlistProvider>
   );
 }
 
