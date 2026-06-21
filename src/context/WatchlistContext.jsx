@@ -41,3 +41,14 @@ export function WatchlistProvider({ children }) {
     </WatchlistContext.Provider>
   );
 }
+
+import { useContext } from "react"; // Certifique-se de importar o useContext no topo do arquivo se não tiver
+
+// 2.5 - Criar e exportar o hook useWatchlist
+export function useWatchlist() {
+  const context = useContext(WatchlistContext);
+  if (!context) {
+    throw new Error("useWatchlist deve ser usado dentro de um WatchlistProvider");
+  }
+  return context;
+}
