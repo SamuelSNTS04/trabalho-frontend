@@ -1,0 +1,36 @@
+{
+  "filmes": [
+    {
+      "id": "1",
+      "titulo": "A Origem",
+      "diretor": "Christopher Nolan",
+      "ano": 2010,
+      "categoria": "Ficção Científica",
+      "status": "assistido"
+    },
+    {
+      "id": "2",
+      "titulo": "O Senhor dos Anéis: A Sociedade do Anel",
+      "diretor": "Peter Jackson",
+      "ano": 2001,
+      "categoria": "Fantasia",
+      "status": "minha-lista"
+    },
+    {
+      "id": "3",
+      "titulo": "Breaking Bad",
+      "diretor": "Vince Gilligan",
+      "ano": 2008,
+      "categoria": "Série / Drama",
+      "status": "minha-lista"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "nome": "Daniel",
+      "email": "daniel.p.amorim@iesb.edu.br",
+      "senha": "123"
+    }
+  ]
+}

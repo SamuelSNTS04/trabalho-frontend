@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+:root {
+  --bg-principal: #0b0e14; /* Fundo super escuro */
+  --bg-card: #131922; /* Fundo dos blocos e navbar */
+  --texto-claro: #f3f4f6; /* Texto principal */
+  --texto-mutado: #8892b0; /* Texto secundário (cinza) */
+  --cor-destaque: #e2b659; /* Dourado/Amarelo para links ativos e logos */
+  --borda: #1e2633; /* Linhas divisórias */
+}
+
+/* Reset básico para a página ocupar a tela toda corretamente */
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--bg-principal);
+  color: var(--texto-claro);
+}
+
+/* Estrutura do Layout */
+.layout-container {
+  display: flex;
+  flex-direction: column; /* Coloca a Navbar no topo e o conteúdo abaixo */
+  min-height: 100vh;
+}
+
+/* Estilização da Navbar (Barra Superior) */
+.main-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-card);
+  padding: 15px 30px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--cor-destaque);
+  letter-spacing: 1px;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  color: var(--texto-claro);
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.navbar-links a:hover {
+  background-color: var(--bg-principal);
+  color: var(--cor-destaque);
+}
+
+/* Estilo para destacar o link da página onde o usuário está (Padrão do Professor) */
+.navbar-links a.active {
+  color: var(--bg-principal);
+  background-color: var(--cor-destaque);
+  font-weight: bold;
+}
+
+/* Área onde o conteúdo das páginas vai aparecer */
+.conteudo-principal {
+  flex: 1;
+  padding: 40px;
+  background-color: var(--bg-principal);
+}
