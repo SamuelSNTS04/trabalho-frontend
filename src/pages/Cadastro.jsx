@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 
 function Cadastro() {
-  // Inicializando o hook form
-  const { register, handleSubmit } = useForm();
+  // Extraindo errors do formState
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -15,13 +15,12 @@ function Cadastro() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="titulo">Título</label>
-          {/* Validação: Obrigatório */}
           <input id="titulo" type="text" {...register("titulo", { required: "O título é obrigatório" })} />
+          {errors.titulo && <span style={{ color: "#ff4a4a", fontSize: "14px" }}>{errors.titulo.message}</span>}
         </div>
 
         <div>
           <label htmlFor="genero">Gênero</label>
-          {/* Validação: Obrigatório */}
           <select id="genero" {...register("genero", { required: "Selecione um gênero válido" })}>
             <option value="">Selecione um gênero...</option>
             <option value="Ação">Ação</option>
@@ -30,11 +29,11 @@ function Cadastro() {
             <option value="Fantasia">Fantasia</option>
             <option value="Série / Drama">Série / Drama</option>
           </select>
+          {errors.genero && <span style={{ color: "#ff4a4a", fontSize: "14px" }}>{errors.genero.message}</span>}
         </div>
 
         <div>
           <label htmlFor="ano">Ano de Lançamento</label>
-          {/* Validação: Obrigatório, valor mínimo e máximo */}
           <input 
             id="ano" 
             type="number" 
@@ -44,11 +43,11 @@ function Cadastro() {
               max: { value: 2030, message: "O ano não pode ser muito no futuro" }
             })} 
           />
+          {errors.ano && <span style={{ color: "#ff4a4a", fontSize: "14px" }}>{errors.ano.message}</span>}
         </div>
 
         <div>
           <label htmlFor="sinopse">Sinopse</label>
-          {/* Validação: Obrigatória, tamanho mínimo */}
           <textarea 
             id="sinopse" 
             rows="4" 
@@ -57,11 +56,11 @@ function Cadastro() {
               minLength: { value: 10, message: "A sinopse deve ter pelo menos 10 caracteres" }
             })}
           ></textarea>
+          {errors.sinopse && <span style={{ color: "#ff4a4a", fontSize: "14px" }}>{errors.sinopse.message}</span>}
         </div>
 
         <div>
           <label htmlFor="capaUrl">URL da Capa</label>
-          {/* Validação: Obrigatória e validação de padrão URL por Regex */}
           <input 
             id="capaUrl" 
             type="text" 
@@ -69,10 +68,11 @@ function Cadastro() {
               required: "A URL da capa é obrigatória",
               pattern: {
                 value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/,
-                message: "Insira uma URL válida (ex: https://...)"
+                message: "Insira uma URL válida"
               }
             })} 
           />
+          {errors.capaUrl && <span style={{ color: "#ff4a4a", fontSize: "14px" }}>{errors.capaUrl.message}</span>}
         </div>
 
         <button type="submit">Cadastrar</button>
