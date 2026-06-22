@@ -1,22 +1,29 @@
-import { useState } from "react"; 
+import { useState } from "react";
 import { useWatchlist } from "../context/WatchlistContext";
 import MovieCard from "../components/MovieCard";
 
 function Home() {
   const { movies } = useWatchlist();
   
-  // 4.4 - Criar o estado de searchTerm para armazenar o texto da busca
   const [searchTerm, setSearchTerm] = useState("");
+  // 4.5 - Criar o estado para armazenar o gênero selecionado
+  const [selectedGenre, setSelectedGenre] = useState("");
 
-  // 4.4 - Função/Lógica que filtra a lista por título (Case Insensitive)
-  const moviesFiltrados = movies.filter((filme) =>
-    filme.titulo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // 4.5 - Atualizamos a função de filtro para lidar tanto com o título quanto com o gênero
+  const moviesFiltrados = movies.filter((filme) => {
+    // Verifica se o título bate com a busca
+    const matchTitle = filme.titulo.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Verifica se o gênero bate com o select (se o select estiver vazio "", ele aceita todos)
+    const matchGenre = selectedGenre === "" || filme.categoria === selectedGenre;
+    
+    // Retorna verdadeiro apenas se passar nas duas condições
+    return matchTitle && matchGenre;
+  });
 
   return (
     <main className="container mx-auto p-6">
-      {/* Ajustamos o header com flexbox para o input alinhar bem ao lado do título em telas maiores */}
-      <header className="mb-8 border-b border-gray-800 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <header className="mb-8 border-b border-gray-800 pb-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-yellow-500">Catálogo CineKeep</h1>
           <p className="text-gray-400 mt-2">
@@ -24,15 +31,32 @@ function Home() {
           </p>
         </div>
 
-        {/* 4.4 - Componente visual do Input de Busca */}
-        <div className="w-full md:w-80">
+        {/* Agrupamos os filtros do lado direito */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+          
+          {/* 4.4 - Input de Busca por Título */}
           <input
             type="text"
             placeholder="Buscar filme por título..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors"
+            className="w-full sm:w-64 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors"
           />
+
+          {/* 4.5 - Select de Gênero */}
+          <select
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+            className="w-full sm:w-48 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:outline-none focus:border-yellow-500 transition-colors"
+          >
+            <option value="">Todos os Gêneros</option>
+            <option value="Ação">Ação</option>
+            <option value="Drama">Drama</option>
+            <option value="Ficção Científica">Ficção Científica</option>
+            <option value="Fantasia">Fantasia</option>
+            <option value="Série / Drama">Série / Drama</option>
+          </select>
+
         </div>
       </header>
 
@@ -44,18 +68,14 @@ function Home() {
             </p>
           </div>
         ) : moviesFiltrados.length === 0 ? (
-          /* Mensagem temporária para quando a busca não encontra nada */
           <div className="text-center py-12 text-gray-400 text-lg">
-            Nenhum filme encontrado para "{searchTerm}".
+            Nenhum título encontrado com os filtros aplicados.
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            
-            {/* 4.4 - Mudamos o loop para renderizar a partir da lista FILTRADA */}
             {moviesFiltrados.map((filme) => (
               <MovieCard key={filme.id} filme={filme} />
             ))}
-
           </div>
         )}
       </section>
