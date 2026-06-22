@@ -1,54 +1,69 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 
-// 2.1 - Inicializar o createContext
 export const WatchlistContext = createContext();
 
 export function WatchlistProvider({ children }) {
-  // 2.3 - Criar o estado movies
   const [movies, setMovies] = useState([]);
 
-  // 2.3 - Implementar o useEffect com fetch(GET) para carregar os dados do db.json
   useEffect(() => {
-    fetch("http://localhost:3000/filmes")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erro ao buscar filmes da API");
-        }
-        return response.json();
+    fetch("http://localhost:3000/movies")
+      .then((res) => {
+        if (!res.ok) throw new Error("Servidor offline.");
+        return res.json();
       })
-      .then((data) => setMovies(data))
-      .catch((error) => console.error("Erro no fetch inicial:", error));
+      .then((data) => {
+        if (Array.isArray(data)) setMovies(data);
+        else setMovies([]);
+      })
+      .catch((err) => {
+        console.error("Erro ao carregar os filmes:", err);
+        setMovies([]);
+      });
   }, []);
 
-  // 2.4 - Criar a função addMovieToList usando o operador spread
   const addMovieToList = (newMovie) => {
     setMovies((prevMovies) => [...prevMovies, newMovie]);
   };
 
-  // 2.6 - Fornecer o total de filmes (movies.length)
-  const totalMovies = movies.length;
+  const updateStatus = async (id, newStatus) => {
+    try {
+      await fetch(`http://localhost:3000/movies/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      setMovies((prevMovies) => 
+        prevMovies.map(movie => 
+          movie.id === id ? { ...movie, status: newStatus } : movie
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar o status:", error);
+    }
+  };
+
+  // 🗑️ NOVA FUNÇÃO: Remove o filme permanentemente do Banco de Dados e da tela
+  const deleteMovie = async (id) => {
+    try {
+      await fetch(`http://localhost:3000/movies/${id}`, {
+        method: "DELETE"
+      });
+
+      // Atualiza o estado removendo o filme deletado
+      setMovies((prevMovies) => prevMovies.filter(movie => movie.id !== id));
+    } catch (error) {
+      console.error("Erro ao deletar o filme:", error);
+    }
+  };
 
   return (
-    <WatchlistContext.Provider
-      value={{
-        movies,
-        setMovies,
-        addMovieToList,
-        totalMovies,
-      }}
-    >
+    <WatchlistContext.Provider value={{ movies, updateStatus, addMovieToList, deleteMovie }}>
       {children}
     </WatchlistContext.Provider>
   );
 }
 
-import { useContext } from "react"; // Certifique-se de importar o useContext no topo do arquivo se não tiver
-
-// 2.5 - Criar e exportar o hook useWatchlist
-export function useWatchlist() {
-  const context = useContext(WatchlistContext);
-  if (!context) {
-    throw new Error("useWatchlist deve ser usado dentro de um WatchlistProvider");
-  }
-  return context;
-}
+export const useWatchlist = () => {
+  return useContext(WatchlistContext);
+};

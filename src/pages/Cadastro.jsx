@@ -28,7 +28,7 @@ function Cadastro() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/filmes", {
+      const response = await fetch("http://localhost:3000/movies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
