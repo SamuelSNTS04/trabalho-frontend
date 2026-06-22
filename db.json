@@ -23,6 +23,16 @@
       "ano": 2008,
       "categoria": "Série / Drama",
       "status": "minha-lista"
+    },
+    {
+      "titulo": "Carros",
+      "diretor": "Desconhecido",
+      "ano": 2006,
+      "categoria": "Fantasia",
+      "status": "minha-lista",
+      "sinopse": "\"Carros\" é um filme de animação da Pixar que segue a jornada do carro de corrida Relâmpago McQueen, que aprende lições valiosas sobre amizade e humildade após se perder em uma cidade esquecida da Rota 66.",
+      "capaUrl": "https://image.tmdb.org/t/p/original/vwUn3hjz4E142vpD8eKfH9uyB46.jpg",
+      "id": "_wGWfIeWASg"
     }
   ],
   "usuarios": [
@@ -32,5 +42,6 @@
       "email": "daniel.p.amorim@iesb.edu.br",
       "senha": "123"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
