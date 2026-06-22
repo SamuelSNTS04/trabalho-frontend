@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useWatchlist } from "../context/WatchlistContext";
 import MovieCard from "../components/MovieCard";
-import NoResults from "../components/NoResults"; // <-- 4.7 Importamos o novo componente
+import NoResults from "../components/NoResults.jsx"; // <-- 4.7 Importamos o novo componente
 
 function Home() {
   const { movies } = useWatchlist();
