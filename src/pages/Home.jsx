@@ -1,23 +1,17 @@
 import { useState } from "react";
 import { useWatchlist } from "../context/WatchlistContext";
 import MovieCard from "../components/MovieCard";
+import NoResults from "../components/NoResults"; // <-- 4.7 Importamos o novo componente
 
 function Home() {
   const { movies } = useWatchlist();
   
   const [searchTerm, setSearchTerm] = useState("");
-  // 4.5 - Criar o estado para armazenar o gênero selecionado
   const [selectedGenre, setSelectedGenre] = useState("");
 
-  // 4.5 - Atualizamos a função de filtro para lidar tanto com o título quanto com o gênero
   const moviesFiltrados = movies.filter((filme) => {
-    // Verifica se o título bate com a busca
     const matchTitle = filme.titulo.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    // Verifica se o gênero bate com o select (se o select estiver vazio "", ele aceita todos)
     const matchGenre = selectedGenre === "" || filme.categoria === selectedGenre;
-    
-    // Retorna verdadeiro apenas se passar nas duas condições
     return matchTitle && matchGenre;
   });
 
@@ -31,10 +25,7 @@ function Home() {
           </p>
         </div>
 
-        {/* Agrupamos os filtros do lado direito */}
         <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-          
-          {/* 4.4 - Input de Busca por Título */}
           <input
             type="text"
             placeholder="Buscar filme por título..."
@@ -43,7 +34,6 @@ function Home() {
             className="w-full sm:w-64 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors"
           />
 
-          {/* 4.5 - Select de Gênero */}
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
@@ -56,7 +46,6 @@ function Home() {
             <option value="Fantasia">Fantasia</option>
             <option value="Série / Drama">Série / Drama</option>
           </select>
-
         </div>
       </header>
 
@@ -68,9 +57,10 @@ function Home() {
             </p>
           </div>
         ) : moviesFiltrados.length === 0 ? (
-          <div className="text-center py-12 text-gray-400 text-lg">
-            Nenhum título encontrado com os filtros aplicados.
-          </div>
+          
+          /* 4.7 - Chamamos o componente e passamos o texto da busca como prop */
+          <NoResults searchTerm={searchTerm} />
+
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {moviesFiltrados.map((filme) => (
