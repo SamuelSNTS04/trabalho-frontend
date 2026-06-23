@@ -1,0 +1,64 @@
+{
+  "movies": [
+    {
+      "titulo": "Carros",
+      "diretor": "Desconhecido",
+      "ano": 2006,
+      "categoria": "Fantasia",
+      "status": "assistido",
+      "sinopse": "\"Carros\" é um filme de animação da Pixar que segue a jornada do carro de corrida Relâmpago McQueen, que aprende lições valiosas sobre amizade e humildade após se perder em uma cidade esquecida da Rota 66.",
+      "capaUrl": "https://image.tmdb.org/t/p/original/vwUn3hjz4E142vpD8eKfH9uyB46.jpg",
+      "id": "_wGWfIeWASg"
+    },
+    {
+      "titulo": "Barbie",
+      "diretor": "Desconhecido",
+      "ano": 2023,
+      "categoria": "Fantasia",
+      "status": "assistindo",
+      "sinopse": "\"Barbie\" é um filme de live-action dirigido por Greta Gerwig, que explora a vida da famosa boneca em Barbieland, onde ela começa a questionar sua existência e a busca por um significado mais profundo.",
+      "capaUrl": "https://marciatravessoni.com.br/wp-content/uploads/2023/04/veja-trailer-do-live-action-barbie-2.jpg",
+      "id": "i_kqxcPfiBs"
+    },
+    {
+      "titulo": "Titanic",
+      "diretor": "Desconhecido",
+      "ano": 1997,
+      "categoria": "Drama",
+      "status": "nao_quero",
+      "sinopse": "Titanic (1997) é um épico romântico e dramático dirigido por James Cameron que acompanha o encontro de uma jovem aristocrata e um artista livre a bordo do famoso transatlântico em sua viagem inaugural. O filme combina uma poderosa história de amor com a grandiosidade de uma tragédia histórica, contando com atuações marcantes de Leonardo DiCaprio e Kate Winslet, direção impecável e efeitos visuais que revolucionaram o cinema. Aclamado pela crítica, venceu 11 Oscars e é considerado um clássico imperdível.",
+      "capaUrl": "https://alchetron.com/cdn/Titanic-1997-film-images-a22fb9ac-f962-4f07-a4a0-c4459a45b94.jpg",
+      "id": "H3TH50sVWkY"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "nome": "Daniel",
+      "email": "daniel.p.amorim@iesb.edu.br",
+      "senha": "123"
+    },
+    {
+      "nome": "Teste",
+      "sobrenome": "Testado",
+      "email": "teste@teste.com",
+      "senha": "senha123",
+      "id": "UtrLI7ir9X0"
+    },
+    {
+      "nome": "Samuel",
+      "sobrenome": "Magalhães",
+      "email": "samuel@teste.com",
+      "senha": "senha123",
+      "id": "-Kct6HtiAQA"
+    },
+    {
+      "nome": "joaquim",
+      "sobrenome": "perreira",
+      "email": "joaq@cinekeep.com",
+      "senha": "joaquim321",
+      "id": "zT4biAgpM64"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
