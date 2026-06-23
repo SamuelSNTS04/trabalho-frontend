@@ -28,24 +28,6 @@ O projeto foi construído utilizando uma abordagem **Mobile First**, garantindo 
 
 ---
 
-## 📱 Demonstração
-
-### Tela Inicial
-
-![Tela Inicial](./assets/home.png)
-
-### Minha Lista
-
-![Minha Lista](./assets/minha-lista.png)
-
-### Cadastro de Títulos
-
-![Cadastro](./assets/cadastro.png)
-
-> Substitua as imagens acima pelos caminhos corretos dos screenshots do seu projeto.
-
----
-
 ## 📂 Estrutura do Projeto
 
 ```text
@@ -154,34 +136,17 @@ Exemplo:
 * TMDB API
 * OMDb API
 
----
-
-## 🔮 Melhorias Futuras
-
-* Implementação de autenticação de usuários.
-* Persistência em banco de dados real.
-* Sistema de avaliações e notas.
-* Pesquisa avançada por gênero.
-* Favoritar títulos.
-* Dashboard com estatísticas de consumo.
-* Implementação de tema Dark Mode.
-* Integração com APIs públicas de filmes e séries.
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
-Desenvolvido por **Samuel Magalhães**.
+Desenvolvido por **Samuel Magalhães**e
+**Daniel Pacheco**
 
-### Contato
+### Contatos
 
-* GitHub: https://github.com/seuusuario
-* LinkedIn: https://linkedin.com/in/seuperfil
+* GitHub: https://github.com/SamuelSNTS04
+* GitHub: https://github.com/DanielPAmorim
 
 ---
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT.
-
-Sinta-se à vontade para estudar, modificar e utilizar este projeto para fins educacionais e de aprendizado.
