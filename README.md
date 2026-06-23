@@ -61,11 +61,11 @@ Antes de começar, você precisará ter instalado:
 ### 1️⃣ Clonar o Repositório
 
 ```bash
-git clone https://github.com/seuusuario/cinekeep.git
+git clone https://github.com/SamuelSNTS04/trabalho-frontend.git
 ```
 
 ```bash
-cd cinekeep
+cd trabalho-frontend
 ```
 
 ---
