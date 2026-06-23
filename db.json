@@ -58,6 +58,13 @@
       "email": "joaq@cinekeep.com",
       "senha": "joaquim321",
       "id": "zT4biAgpM64"
+    },
+    {
+      "nome": "pedro",
+      "sobrenome": "tiago",
+      "email": "ped@cinekeep.com",
+      "senha": "pedro123",
+      "id": "7vX9jU_JxiA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
