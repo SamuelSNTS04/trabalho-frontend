@@ -129,13 +129,10 @@ O projeto segue uma arquitetura baseada em componentes reutilizáveis, promovend
 * Facilidade de manutenção.
 * Reutilização de componentes.
 
-Caso esteja utilizando alguma API externa para consulta de filmes, séries ou imagens de capa, descreva-a nesta seção.
-
 Exemplo:
 
 * TMDB API
 * OMDb API
-
 
 ---
 
@@ -148,5 +145,3 @@ Desenvolvido por **Samuel Magalhães**e
 
 * GitHub: https://github.com/SamuelSNTS04
 * GitHub: https://github.com/DanielPAmorim
-
----
