@@ -1,16 +1,187 @@
-# React + Vite
+# 🎬 CineKeep
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **CineKeep** é uma aplicação web desenvolvida para cinéfilos e entusiastas de séries que desejam organizar, categorizar e gerenciar seus títulos favoritos em um só lugar.
 
-Currently, two official plugins are available:
+O projeto foi construído utilizando uma abordagem **Mobile First**, garantindo uma experiência de uso fluida, moderna e totalmente responsiva, adaptando-se perfeitamente desde telas de celulares até monitores desktop.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Funcionalidades Principais
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Catálogo Inteligente:** Listagem de filmes e séries organizada por categorias.
+* **Minha Lista Personalizada:** Acompanhamento do progresso de cada título através de status dinâmicos (*Quero Assistir*, *Assistindo*, *Assistido* e *Não Quero Mais Assistir*).
+* **Cards Expansíveis:** Exibição detalhada de informações como sinopse e ano de lançamento diretamente no card do filme de forma interativa.
+* **Cadastro Completo:** Formulário padronizado e validado para a adição de novos títulos com busca inteligente de imagem de capa.
+* **Roteamento Seguro:** Sistema de rotas privadas e públicas, incluindo uma página personalizada e humorada para erros de navegação (404).
+* **Layout Responsivo:** Interface adaptada para dispositivos móveis, tablets e desktops.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tecnologias Utilizadas
+
+* **React** — Biblioteca para construção da interface.
+* **Vite** — Ferramenta de build e desenvolvimento rápida e moderna.
+* **React Router DOM** — Gerenciamento de rotas e navegação.
+* **React Hook Form** — Manipulação e validação de formulários.
+* **Tailwind CSS** — Estilização utilitária com foco em responsividade.
+* **JSON Server** — Simulação de uma API REST para persistência dos dados.
+
+---
+
+## 📱 Demonstração
+
+### Tela Inicial
+
+![Tela Inicial](./assets/home.png)
+
+### Minha Lista
+
+![Minha Lista](./assets/minha-lista.png)
+
+### Cadastro de Títulos
+
+![Cadastro](./assets/cadastro.png)
+
+> Substitua as imagens acima pelos caminhos corretos dos screenshots do seu projeto.
+
+---
+
+## 📂 Estrutura do Projeto
+
+```text
+src/
+├── assets/
+├── components/
+├── pages/
+├── routes/
+├── services/
+├── hooks/
+├── styles/
+├── App.jsx
+└── main.jsx
+```
+
+---
+
+## 💻 Como Inicializar o Projeto
+
+Siga os passos abaixo para executar a aplicação localmente.
+
+### Pré-requisitos
+
+Antes de começar, você precisará ter instalado:
+
+* Node.js (versão 18 ou superior recomendada)
+* npm (já incluído no Node.js)
+
+---
+
+### 1️⃣ Clonar o Repositório
+
+```bash
+git clone https://github.com/seuusuario/cinekeep.git
+```
+
+```bash
+cd cinekeep
+```
+
+---
+
+### 2️⃣ Instalar as Dependências
+
+```bash
+npm install
+```
+
+---
+
+### 3️⃣ Iniciar o Servidor Back-end (JSON Server)
+
+```bash
+npm run server
+```
+
+Por padrão, a API mock será executada em:
+
+```text
+http://localhost:3000
+```
+
+---
+
+### 4️⃣ Iniciar o Front-end
+
+```bash
+npm run dev
+```
+
+Após a execução, o terminal exibirá um endereço local semelhante a:
+
+```text
+http://localhost:5173
+```
+
+Abra essa URL em seu navegador para acessar o projeto.
+
+---
+
+## 📌 Comandos Úteis
+
+| Comando           | Descrição                                 |
+| ----------------- | ----------------------------------------- |
+| `npm install`     | Instala todas as dependências do projeto  |
+| `npm run dev`     | Inicia o ambiente de desenvolvimento      |
+| `npm run server`  | Inicia o JSON Server                      |
+| `npm run build`   | Gera a versão otimizada para produção     |
+| `npm run preview` | Visualiza localmente a versão de produção |
+
+---
+
+## 🏗️ Arquitetura e Integrações
+
+O projeto segue uma arquitetura baseada em componentes reutilizáveis, promovendo:
+
+* Organização e escalabilidade do código.
+* Separação de responsabilidades.
+* Facilidade de manutenção.
+* Reutilização de componentes.
+
+Caso esteja utilizando alguma API externa para consulta de filmes, séries ou imagens de capa, descreva-a nesta seção.
+
+Exemplo:
+
+* TMDB API
+* OMDb API
+
+---
+
+## 🔮 Melhorias Futuras
+
+* Implementação de autenticação de usuários.
+* Persistência em banco de dados real.
+* Sistema de avaliações e notas.
+* Pesquisa avançada por gênero.
+* Favoritar títulos.
+* Dashboard com estatísticas de consumo.
+* Implementação de tema Dark Mode.
+* Integração com APIs públicas de filmes e séries.
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Samuel Magalhães**.
+
+### Contato
+
+* GitHub: https://github.com/seuusuario
+* LinkedIn: https://linkedin.com/in/seuperfil
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
+
+Sinta-se à vontade para estudar, modificar e utilizar este projeto para fins educacionais e de aprendizado.
