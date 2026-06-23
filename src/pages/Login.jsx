@@ -34,54 +34,48 @@ function Login({ setEstaLogado }) {
       return;
     }
 
-    // 2. Validação de tamanho mínimo da senha
+    // 2. Validação de tamanho mínimo da senha ao tentar logar
     if (senha.length < 8) {
       setErroSenha("Mínimo 8 caracteres");
       setErroGeral("");
       return;
     }
 
-    // 📡 VALIDAÇÃO REAL COM O BANCO DE DADOS (json-server)
+    // 📡 INTEGRAÇÃO REAL COM O JSON-SERVER (Busca pelo e-mail fornecido)
     try {
-      // 🛠️ CORRIGIDO: Nome da variável sem espaço (camelCase)
-      const emailFormatado = email.trim().toLowerCase();
+      const urlBusca = `http://localhost:3000/usuarios?email=${email.trim().toLowerCase()}`;
+      const resposta = await fetch(urlBusca);
 
-      // Buscamos a lista de usuários cadastrados
-      const resposta = await fetch("http://localhost:3000/usuarios");
-      
-      if (resposta.ok) {
-        const usuarios = await resposta.json();
-
-        // Procura se existe algum usuário com o mesmo email e senha digitados
-        const usuarioEncontrado = usuarios.find(
-          (user) => user.email === emailFormatado && user.senha === senha
-        );
-
-        if (usuarioEncontrado) {
-          // 🎉 Sucesso! Encontrou no banco
-          limparErrosELogar();
-          return;
-        }
-      }
-      
-      // 3. Fallback: Se não achou no banco (ou rota vazia), testa o usuário estático de backup
-      if (emailFormatado === USUARIO_BACKUP.email && senha === USUARIO_BACKUP.senha) {
-        limparErrosELogar();
+      if (!resposta.ok) {
+        setErroGeral("Erro ao conectar com o banco de dados.");
         return;
       }
 
-      // Se não passou em nenhum, credenciais inválidas
-      setErroGeral("E-mail ou senha inválidos.");
+      const usuariosEncontrados = await resposta.json();
 
-    } catch (error) {
-      console.error("Erro ao conectar no banco para login:", error);
-      
-      // Se o servidor estiver offline, ainda permitimos logar com o backup para não travar seu desenvolvimento
-      if (email.trim().toLowerCase() === USUARIO_BACKUP.email && senha === USUARIO_BACKUP.senha) {
-        limparErrosELogar();
-      } else {
-        setErroGeral("Servidor offline. Tente o usuário padrão: teste@cinekeep.com / senha123");
+      // Se não encontrou nenhuma conta com esse e-mail no banco
+      if (usuariosEncontrados.length === 0) {
+        setErroGeral("E-mail ou senha inválidos.");
+        return;
       }
+
+      const usuarioDb = usuariosEncontrados[0];
+
+      // 3. Validação das credenciais direto do banco de dados
+      if (usuarioDb.senha !== senha) {
+        setErroGeral("E-mail ou senha inválidos.");
+        return;
+      }
+
+      // Se as credenciais estiverem corretas:
+      setErroGeral("");
+      setErroSenha("");
+      setEstaLogado(true);
+      navigate("/"); // Redireciona para a Home
+      
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setErroGeral("Não foi possível conectar ao servidor backend.");
     }
   };
 

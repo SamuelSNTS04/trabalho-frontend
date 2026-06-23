@@ -85,6 +85,13 @@
       "email": "samuel@teste.com",
       "senha": "senha123",
       "id": "-Kct6HtiAQA"
+    },
+    {
+      "nome": "joaquim",
+      "sobrenome": "perreira",
+      "email": "joaq@cinekeep.com",
+      "senha": "joaquim321",
+      "id": "zT4biAgpM64"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
