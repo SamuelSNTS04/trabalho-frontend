@@ -15,7 +15,6 @@ import ConfirmarSenha from "./pages/ConfirmarSenha";
 import CadastroUsuario from "./pages/CadastroUsuario";
 import Login from "./pages/Login";
 import MinhaLista from "./pages/MinhaLista";
-// ❌ O import de Sugestoes foi removido daqui
 import Erro404 from "./pages/Erro404";
 
 function App() {
