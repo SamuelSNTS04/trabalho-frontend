@@ -19,7 +19,7 @@ function Home() {
     <main className="container mx-auto p-6">
       <header className="mb-8 border-b border-gray-800 pb-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-yellow-500">Catálogo CineKeep</h1>
+          <h1 className="text-3xl font-bold text-yellow-500">Catálogo</h1>
           <p className="text-gray-400 mt-2">
             Explore nossa coleção. Total de {movies.length} título(s) carregado(s).
           </p>

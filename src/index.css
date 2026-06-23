@@ -26,6 +26,11 @@ body {
   color: var(--texto-claro);
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 /* Estrutura do Layout */
 .layout-container {
   display: flex;

@@ -15,7 +15,7 @@ import ConfirmarSenha from "./pages/ConfirmarSenha";
 import CadastroUsuario from "./pages/CadastroUsuario";
 import Login from "./pages/Login";
 import MinhaLista from "./pages/MinhaLista";
-import Sugestoes from "./pages/Sugestoes";
+// ❌ O import de Sugestoes foi removido daqui
 import Erro404 from "./pages/Erro404";
 
 function App() {
@@ -35,17 +35,17 @@ function App() {
         <Route path="/cadastro-usuario" element={<CadastroUsuario />} />{" "}
         {/* Novo Cadastro de Usuário */}
         <Route path="/confirmar-senha" element={<ConfirmarSenha />} />
+        
         {/* 🛡️ Rotas Protegidas / Internas (Que compartilham o Layout/Menu lateral) */}
-        {/* Se não estiver logado, qualquer tentativa de entrar aqui joga para o /login */}
         <Route
           element={estaLogado ? <Layout /> : <Navigate to="/login" replace />}
         >
           <Route path="/" element={<Home />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/minha-lista" element={<MinhaLista />} />
-          <Route path="/sugestoes" element={<Sugestoes />} />
           <Route path="/configuracoes" element={<Configuracoes />} />
         </Route>
+        
         {/* Rota de Captura para qualquer link inexistente (404) */}
         <Route path="*" element={<Erro404 />} />
       </Routes>

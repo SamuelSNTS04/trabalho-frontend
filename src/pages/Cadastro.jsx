@@ -6,7 +6,6 @@ function Cadastro() {
   const { addMovieToList } = useWatchlist();
   const navigate = useNavigate();
 
-  // Incluindo o reset para limpar o form no sucesso
   const {
     register,
     handleSubmit,
@@ -14,12 +13,10 @@ function Cadastro() {
     formState: { errors },
   } = useForm();
 
-  // 3.4 - Função Assíncrona de Envio (POST)
   const onSubmit = async (data) => {
     const novoFilme = {
-      // Como o json-server precisa mapear sua estrutura do db.json, vamos formatar os dados adequadamente:
       titulo: data.titulo,
-      diretor: "Desconhecido", // Campo fixo exigido pela API mas opcional no form
+      diretor: "Desconhecido",
       ano: Number(data.ano),
       categoria: data.genero,
       status: "minha-lista",
@@ -38,15 +35,9 @@ function Cadastro() {
 
       if (response.ok) {
         const filmeSalvo = await response.json();
-
-        // 3.5 - Integração: Adiciona ao Estado Global sem nova chamada de GET
         addMovieToList(filmeSalvo);
-
-        // 3.6 - Feedback de sucesso e limpeza
         reset();
         alert("Filme cadastrado com sucesso!");
-
-        // 3.6 - Redirecionamento automático
         navigate("/minha-lista");
       } else {
         alert("Erro ao salvar o filme no servidor.");
@@ -58,175 +49,136 @@ function Cadastro() {
   };
 
   return (
-    <div
-      className="cadastro-container"
-      style={{ maxWidth: "500px", margin: "0 auto" }}
-    >
-      <h2 style={{ color: "var(--cor-destaque)", marginBottom: "20px" }}>
-        🎬 Cadastrar Novo Filme/Série
-      </h2>
+    <main className="container mx-auto p-6">
+      {/* Cabeçalho centralizado para seguir o padrão do formulário */}
+      <header className="mb-8 border-b border-gray-800 pb-6 text-center">
+        <h1 className="text-3xl font-bold text-yellow-500">🎬 Cadastrar Novo Filme/Série</h1>
+        <p className="text-gray-400 mt-2">
+          Preencha os detalhes abaixo para adicionar um novo título ao catálogo.
+        </p>
+      </header>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label htmlFor="titulo" style={{ fontWeight: "bold" }}>
-            Título
-          </label>
-          <input
-            id="titulo"
-            type="text"
-            style={{
-              padding: "10px",
-              borderRadius: "4px",
-              border: "1px solid var(--borda)",
-              backgroundColor: "var(--bg-card)",
-              color: "#fff",
-            }}
-            {...register("titulo", { required: "O título é obrigatório" })}
-          />
-          {errors.titulo && (
-            <span style={{ color: "#ff4a4a", fontSize: "14px" }}>
-              {errors.titulo.message}
-            </span>
-          )}
-        </div>
+      {/* Container do formulário centralizado */}
+      <div className="max-w-xl mx-auto">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+          
+          <div className="flex flex-col gap-2">
+            <label htmlFor="titulo" className="font-bold text-gray-200">
+              Título
+            </label>
+            <input
+              id="titulo"
+              type="text"
+              className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:outline-none focus:border-yellow-500 transition-colors"
+              {...register("titulo", { required: "O título é obrigatório" })}
+            />
+            {errors.titulo && (
+              <span className="text-red-500 text-sm">{errors.titulo.message}</span>
+            )}
+          </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label htmlFor="genero" style={{ fontWeight: "bold" }}>
-            Gênero
-          </label>
-          <select
-            id="genero"
-            style={{
-              padding: "10px",
-              borderRadius: "4px",
-              border: "1px solid var(--borda)",
-              backgroundColor: "var(--bg-card)",
-              color: "#fff",
-            }}
-            {...register("genero", { required: "Selecione um gênero válido" })}
-          >
-            <option value="">Selecione um gênero...</option>
-            <option value="Ação">Ação</option>
-            <option value="Drama">Drama</option>
-            <option value="Ficção Científica">Ficção Científica</option>
-            <option value="Fantasia">Fantasia</option>
-            <option value="Série / Drama">Série / Drama</option>
-          </select>
-          {errors.genero && (
-            <span style={{ color: "#ff4a4a", fontSize: "14px" }}>
-              {errors.genero.message}
-            </span>
-          )}
-        </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="genero" className="font-bold text-gray-200">
+              Gênero
+            </label>
+            <select
+              id="genero"
+              className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:outline-none focus:border-yellow-500 transition-colors"
+              {...register("genero", { required: "Selecione um gênero válido" })}
+            >
+              <option value="">Selecione um gênero...</option>
+              <option value="Ação">Ação</option>
+              <option value="Drama">Drama</option>
+              <option value="Ficção Científica">Ficção Científica</option>
+              <option value="Fantasia">Fantasia</option>
+              <option value="Série / Drama">Série / Drama</option>
+            </select>
+            {errors.genero && (
+              <span className="text-red-500 text-sm">{errors.genero.message}</span>
+            )}
+          </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label htmlFor="ano" style={{ fontWeight: "bold" }}>
-            Ano de Lançamento
-          </label>
-          <input
-            id="ano"
-            type="number"
-            style={{
-              padding: "10px",
-              borderRadius: "4px",
-              border: "1px solid var(--borda)",
-              backgroundColor: "var(--bg-card)",
-              color: "#fff",
-            }}
-            {...register("ano", {
-              required: "O ano é obrigatório",
-              min: { value: 1888, message: "O ano deve ser maior que 1888" },
-              max: { value: 2030, message: "O ano limite é 2030" },
-            })}
-          />
-          {errors.ano && (
-            <span style={{ color: "#ff4a4a", fontSize: "14px" }}>
-              {errors.ano.message}
-            </span>
-          )}
-        </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="ano" className="font-bold text-gray-200">
+              Ano de Lançamento
+            </label>
+            <input
+              id="ano"
+              type="number"
+              className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:outline-none focus:border-yellow-500 transition-colors"
+              {...register("ano", {
+                required: "O ano é obrigatório",
+                min: { value: 1888, message: "O ano deve ser maior que 1888" },
+                max: { value: 2030, message: "O ano limite é 2030" },
+              })}
+            />
+            {errors.ano && (
+              <span className="text-red-500 text-sm">{errors.ano.message}</span>
+            )}
+          </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label htmlFor="sinopse" style={{ fontWeight: "bold" }}>
-            Sinopse
-          </label>
-          <textarea
-            id="sinopse"
-            rows="4"
-            style={{
-              padding: "10px",
-              borderRadius: "4px",
-              border: "1px solid var(--borda)",
-              backgroundColor: "var(--bg-card)",
-              color: "#fff",
-              resize: "none",
-            }}
-            {...register("sinopse", {
-              required: "A sinopse é obrigatória",
-              minLength: {
-                value: 10,
-                message: "A sinopse precisa conter ao menos 10 letras",
-              },
-            })}
-          ></textarea>
-          {errors.sinopse && (
-            <span style={{ color: "#ff4a4a", fontSize: "14px" }}>
-              {errors.sinopse.message}
-            </span>
-          )}
-        </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="sinopse" className="font-bold text-gray-200">
+              Sinopse
+            </label>
+            <textarea
+              id="sinopse"
+              rows="4"
+              className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:outline-none focus:border-yellow-500 transition-colors resize-none"
+              {...register("sinopse", {
+                required: "A sinopse é obrigatória",
+                minLength: {
+                  value: 10,
+                  message: "A sinopse precisa conter ao menos 10 letras",
+                },
+              })}
+            ></textarea>
+            {errors.sinopse && (
+              <span className="text-red-500 text-sm">{errors.sinopse.message}</span>
+            )}
+          </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label htmlFor="capaUrl" style={{ fontWeight: "bold" }}>
-            URL da Capa
-          </label>
-          <input
-            id="capaUrl"
-            type="text"
-            style={{
-              padding: "10px",
-              borderRadius: "4px",
-              border: "1px solid var(--borda)",
-              backgroundColor: "var(--bg-card)",
-              color: "#fff",
-            }}
-            {...register("capaUrl", {
-              required: "A URL da capa é obrigatória",
-              pattern: {
-                value:
-                  /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/,
-                message: "Por favor, digite um endereço de imagem (URL) válido",
-              },
-            })}
-          />
-          {errors.capaUrl && (
-            <span style={{ color: "#ff4a4a", fontSize: "14px" }}>
-              {errors.capaUrl.message}
-            </span>
-          )}
-        </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="capaUrl" className="font-bold text-gray-200">
+              URL da Capa
+            </label>
+            <input
+              id="capaUrl"
+              type="text"
+              className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:outline-none focus:border-yellow-500 transition-colors"
+              {...register("capaUrl", {
+                required: "A URL da capa é obrigatória",
+                pattern: {
+                  value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/,
+                  message: "Por favor, digite um endereço de imagem (URL) válido",
+                },
+              })}
+            />
+            {errors.capaUrl && (
+              <span className="text-red-500 text-sm">{errors.capaUrl.message}</span>
+            )}
+          </div>
 
-        <button
-          type="submit"
-          style={{
-            padding: "12px",
-            backgroundColor: "var(--cor-destaque)",
-            color: "var(--bg-principal)",
-            fontWeight: "bold",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginTop: "10px",
-            fontSize: "16px",
-          }}
-        >
-          Salvar Filme
-        </button>
-      </form>
-    </div>
+          {/* Botões usando Tailwind */}
+          <div className="flex gap-4 mt-4">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="flex-1 py-3 px-4 bg-transparent text-gray-300 font-bold border border-gray-700 rounded-lg hover:bg-gray-800 hover:text-white transition-colors"
+            >
+              Voltar
+            </button>
+
+            <button
+              type="submit"
+              className="flex-[2] py-3 px-4 bg-yellow-500 text-gray-900 font-bold rounded-lg hover:bg-yellow-600 transition-colors"
+            >
+              Salvar Filme
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }
 
