@@ -6,27 +6,26 @@ function Login({ setEstaLogado }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erroGeral, setErroGeral] = useState("");
-  const [erroSenha, setErroSenha] = useState(""); // 🔒 Estado para o erro específico do input de senha
+  const [erroSenha, setErroSenha] = useState("");
   
   const navigate = useNavigate();
 
-  // 🧪 CREDENCIAIS DE TESTE (A senha agora tem 8 caracteres para bater com a regra)
-  const USUARIO_TESTE = {
+  // 🧪 USUÁRIO BACKUP (Caso queira testar sem o json-server ligado)
+  const USUARIO_BACKUP = {
     email: "teste@cinekeep.com",
     senha: "senha123"
   };
 
-  // Função para validar a senha enquanto o usuário digita (opcional, mas excelente)
   const handleSenhaChange = (valor) => {
     setSenha(valor);
     if (valor.length > 0 && valor.length < 8) {
       setErroSenha("Mínimo 8 caracteres");
     } else {
-      setErroSenha(""); // Limpa o erro se tiver 8 ou mais, ou se estiver vazio
+      setErroSenha("");
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     
     // 1. Validação de campos vazios
@@ -35,24 +34,63 @@ function Login({ setEstaLogado }) {
       return;
     }
 
-    // 2. Validação de tamanho mínimo da senha ao tentar logar
+    // 2. Validação de tamanho mínimo da senha
     if (senha.length < 8) {
       setErroSenha("Mínimo 8 caracteres");
       setErroGeral("");
       return;
     }
 
-    // 3. Validação das credenciais de teste
-    if (email !== USUARIO_TESTE.email || senha !== USUARIO_TESTE.senha) {
-      setErroGeral("E-mail ou senha inválidos.");
-      return;
-    }
+    // 📡 VALIDAÇÃO REAL COM O BANCO DE DADOS (json-server)
+    try {
+      // 🛠️ CORRIGIDO: Nome da variável sem espaço (camelCase)
+      const emailFormatado = email.trim().toLowerCase();
 
-    // Se passar por tudo, limpa tudo e loga
+      // Buscamos a lista de usuários cadastrados
+      const resposta = await fetch("http://localhost:3000/usuarios");
+      
+      if (resposta.ok) {
+        const usuarios = await resposta.json();
+
+        // Procura se existe algum usuário com o mesmo email e senha digitados
+        const usuarioEncontrado = usuarios.find(
+          (user) => user.email === emailFormatado && user.senha === senha
+        );
+
+        if (usuarioEncontrado) {
+          // 🎉 Sucesso! Encontrou no banco
+          limparErrosELogar();
+          return;
+        }
+      }
+      
+      // 3. Fallback: Se não achou no banco (ou rota vazia), testa o usuário estático de backup
+      if (emailFormatado === USUARIO_BACKUP.email && senha === USUARIO_BACKUP.senha) {
+        limparErrosELogar();
+        return;
+      }
+
+      // Se não passou em nenhum, credenciais inválidas
+      setErroGeral("E-mail ou senha inválidos.");
+
+    } catch (error) {
+      console.error("Erro ao conectar no banco para login:", error);
+      
+      // Se o servidor estiver offline, ainda permitimos logar com o backup para não travar seu desenvolvimento
+      if (email.trim().toLowerCase() === USUARIO_BACKUP.email && senha === USUARIO_BACKUP.senha) {
+        limparErrosELogar();
+      } else {
+        setErroGeral("Servidor offline. Tente o usuário padrão: teste@cinekeep.com / senha123");
+      }
+    }
+  };
+
+  // Função auxiliar para evitar repetição de código
+  const limparErrosELogar = () => {
     setErroGeral("");
     setErroSenha("");
     setEstaLogado(true);
-    navigate("/"); // Redireciona para a Home
+    navigate("/");
   };
 
   return (
@@ -100,7 +138,6 @@ function Login({ setEstaLogado }) {
                 erroSenha ? "border-red-500 focus:border-red-500" : "border-gray-700 focus:border-[#e2b659]"
               }`}
             />
-            {/* 🚨 Mensagem de Erro do Input de Senha */}
             {erroSenha && (
               <span className="text-red-400 text-xs mt-0.5 font-medium pl-1">
                 {erroSenha}
@@ -108,7 +145,7 @@ function Login({ setEstaLogado }) {
             )}
           </div>
 
-          {/* Mensagem de Erro Geral (Incorreto ou Vazio) */}
+          {/* Mensagem de Erro Geral */}
           {erroGeral && (
             <p className="text-red-500 text-xs font-semibold bg-red-950/40 border border-red-900/50 px-3 py-2 rounded-md">
               ⚠️ {erroGeral}

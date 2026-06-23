@@ -71,6 +71,20 @@
       "nome": "Daniel",
       "email": "daniel.p.amorim@iesb.edu.br",
       "senha": "123"
+    },
+    {
+      "nome": "Teste",
+      "sobrenome": "Testado",
+      "email": "teste@teste.com",
+      "senha": "senha123",
+      "id": "UtrLI7ir9X0"
+    },
+    {
+      "nome": "Samuel",
+      "sobrenome": "Magalhães",
+      "email": "samuel@teste.com",
+      "senha": "senha123",
+      "id": "-Kct6HtiAQA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
